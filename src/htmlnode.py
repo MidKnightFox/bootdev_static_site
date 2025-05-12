@@ -12,8 +12,11 @@ class HTMLNODE:
     def props_to_html(self):
         html = ""
         keys = list(self.props)
+        if len(keys) == 0:
+            return ""
+            
         for key in keys:
-            html.append(self.props(key))            
+            html += (self.props[key])            
         return html
     
     def __repr__(self):
