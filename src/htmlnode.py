@@ -57,5 +57,16 @@ class LeafNode(HTMLNode):
         return (f"<{self.tag}{prop_text}>{self.value}</{self.tag}>")
 
 class ParentNode(HTMLNode):
-    pass
+    # Must take tag and children. No Value. Props is optional.
+    def __init__(self,tag,value,children,props={}):
+        super().__init__(tag=tag,value="",children=children,props=props)
+
+    def to_html(self):
+        if self.tag is None:
+            raise ValueError("ParentNode must have a TAG")
+        
+        if self.children is None:
+            raise ValueError("CHILDREN arguement must have a value")
+        
+        
         
