@@ -58,8 +58,8 @@ class LeafNode(HTMLNode):
 
 class ParentNode(HTMLNode):
     # Must take tag and children. No Value. Props is optional.
-    def __init__(self,tag,value,children,props={}):
-        super().__init__(tag=tag,value="",children=children,props=props)
+    def __init__(self,tag,children,props={}):
+        super().__init__(tag=tag,value=None,children=children,props=props)
 
     def to_html(self):
         if self.tag is None:
@@ -68,5 +68,16 @@ class ParentNode(HTMLNode):
         if self.children is None:
             raise ValueError("CHILDREN arguement must have a value")
         
+        # Hold the value for the string beign built recursivly
+        children_html = ""
         
-        
+        # for loop to iterate over the children arguement and feed it recursivly 
+        # back into this method
+        for child in self.children:
+            # put the child item in the for loop to the to_html method (recursive)
+            # and append to the children_html
+            children_html += child.to_html()
+
+        # after the loop has finished return the result with the recursivly built 
+        # children_html variable
+        return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
