@@ -1,3 +1,5 @@
+from enum import Enum
+
 class HTMLNode:
     # set the arguements with fefault values to set them as optional
     # to make them "Mandatory" then just ommit the defined value
@@ -27,7 +29,6 @@ class HTMLNode:
     def __repr__(self):
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
 
-
 class LeafNode(HTMLNode):
     #tag and value are mandatory, props is optional as it's been provided a value
     def __init__(self,tag,value,props={}): 
@@ -56,6 +57,9 @@ class LeafNode(HTMLNode):
 
         return (f"<{self.tag}{prop_text}>{self.value}</{self.tag}>")
 
+    def __repr__(self):
+        return f"LeafNode({self.tag}, {self.value}, {self.props})"
+
 class ParentNode(HTMLNode):
     # Must take tag and children. No Value. Props is optional.
     def __init__(self,tag,children,props={}):
@@ -81,3 +85,8 @@ class ParentNode(HTMLNode):
         # after the loop has finished return the result with the recursivly built 
         # children_html variable
         return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
+
+    # repr (representation) to show how the class is used. Aimed at programmers.
+    # str (string) would be usead to show output to a USer
+    def __repr__(self):
+        return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
